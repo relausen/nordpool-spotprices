@@ -27,10 +27,6 @@ def print_prises_for(prices):
     colorama.deinit()
 
 
-headers = {
-    'content-type': 'application/json',
-}
-
 from_date = date.today()
 to_date = from_date + timedelta(days=2)
 
@@ -51,6 +47,10 @@ query = f'''
     }}
   }}
 '''
+
+headers = {
+    'content-type': 'application/json',
+}
 
 prices_request = requests.post(
     'https://data-api.energidataservice.dk/v1/graphql',
