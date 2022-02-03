@@ -3,14 +3,13 @@ from datetime import date, datetime, timedelta
 import colorama
 import requests
 
-from colorama import Fore, Style
+from colorama import Fore
 
 
-def print_prises_for(prices):
+def print_prises_for(prices, now_color=Fore.GREEN):
     min_price = min(prices, key=lambda p: p['SpotPriceEUR'])['SpotPriceEUR']
     max_price = max(prices, key=lambda p: p['SpotPriceEUR'])['SpotPriceEUR']
 
-    colorama.init()
     for price_data in prices:
         price_time = datetime.fromisoformat(price_data['HourDK'])
         eur_price = price_data['SpotPriceEUR']
@@ -22,9 +21,9 @@ def print_prises_for(prices):
             min_max_suffix = ' (min)'
         elif eur_price == max_price:
             min_max_suffix = ' (max)'
-        fg_color = Fore.GREEN if price_time.date() == datetime.now().date() and price_time.hour == datetime.now().hour else ''
-        print(f'{fg_color}{price_time} {dkk_price:>4}{min_max_suffix}{estimate_suffix}{Style.RESET_ALL}')
-    colorama.deinit()
+        fg_color = now_color if price_time.date() == datetime.now().date() and price_time.hour == datetime.now().hour else ''
+        print(f'{fg_color}{price_time} {dkk_price:>4}{min_max_suffix}{estimate_suffix}')
+        # print(f'{fg_color}{price_time} {dkk_price:>4}{min_max_suffix}{estimate_suffix}{Style.RESET_ALL}')
 
 
 from_date = date.today()
@@ -67,7 +66,9 @@ all_prices = prices_request.json()['data']['elspotprices']
 prices_today = [price_data for price_data in all_prices if datetime.fromisoformat(price_data['HourDK']).date() == datetime.now().date()]
 prices_tomorrow = [price_data for price_data in all_prices if price_data not in prices_today]
 
+colorama.init(autoreset=True)
 print_prises_for(prices_today)
 if prices_tomorrow:
     print('-' * 24)
     print_prises_for(prices_tomorrow)
+colorama.deinit()
