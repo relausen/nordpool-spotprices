@@ -22,7 +22,7 @@ def print_prises_for(prices, now_color=Fore.GREEN):
         elif eur_price == max_price:
             min_max_suffix = ' (max)'
         fg_color = now_color if price_time.date() == datetime.now().date() and price_time.hour == datetime.now().hour else ''
-        print(f'{fg_color}{price_time} {dkk_price:>4}{min_max_suffix}{estimate_suffix}')
+        print(f'{fg_color}{price_time} {dkk_price:>4}{estimate_suffix}{min_max_suffix}')
         # print(f'{fg_color}{price_time} {dkk_price:>4}{min_max_suffix}{estimate_suffix}{Style.RESET_ALL}')
 
 
