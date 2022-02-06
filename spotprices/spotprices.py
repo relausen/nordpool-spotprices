@@ -16,7 +16,7 @@ def print_prises_for(prices, now_color=Fore.GREEN):
         price_time = datetime.fromisoformat(price_data['HourDK'])
         eur_price = price_data['SpotPriceEUR']
         dkk_price_entry = price_data['SpotPriceDKK']
-        dkk_price = round(dkk_price_entry/10) if dkk_price_entry else round(eur_price*eur_dkk/10)
+        dkk_price = round(dkk_price_entry/10, 1) if dkk_price_entry else round(eur_price*eur_dkk/10, 1)
         estimate_suffix = '' if dkk_price_entry else '  *'
         min_max_suffix = ''
         if eur_price == min_price:
@@ -25,7 +25,6 @@ def print_prises_for(prices, now_color=Fore.GREEN):
             min_max_suffix = ' (max)'
         fg_color = now_color if price_time.date() == datetime.now().date() and price_time.hour == datetime.now().hour else ''
         print(f'{fg_color}{price_time} {dkk_price:>4}{estimate_suffix}{min_max_suffix}')
-        # print(f'{fg_color}{price_time} {dkk_price:>4}{min_max_suffix}{estimate_suffix}{Style.RESET_ALL}')
 
 
 from_date = date.today()
