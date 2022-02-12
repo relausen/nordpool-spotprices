@@ -8,7 +8,6 @@ authors = ["Rune Lausen <rune@lausennet.dk>"]
 python = "^3.10"
 requests = "v2.27.1"
 colorama = "^0.4"
-numpy = "^1.22.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
