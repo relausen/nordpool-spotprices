@@ -29,7 +29,7 @@ def print_prises_for(prices, now_color=Fore.GREEN):
         price_time = datetime.fromisoformat(price_data['HourDK'])
         eur_price = price_data['SpotPriceEUR']
         dkk_price_entry = price_data['SpotPriceDKK']
-        dkk_price = round(dkk_price_entry/10, 1) if dkk_price_entry else round(eur_to_dkk(eur_price)/10, 1)
+        dkk_price = round(dkk_price_entry/10, 1) if dkk_price_entry is not None else round(eur_to_dkk(eur_price)/10, 1)
         estimate_suffix = '' if dkk_price_entry is not None else '  *'
         min_max_suffix = ''
         if eur_price == min_price:
