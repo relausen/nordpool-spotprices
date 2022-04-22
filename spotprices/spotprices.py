@@ -46,7 +46,7 @@ def print_prises_for(prices, night_only=False, now_color=Fore.GREEN):
 
         eur_price = price_data['SpotPriceEUR']
         dkk_price_entry = price_data['SpotPriceDKK']
-        dkk_price = round(dkk_price_entry/10, 1) if dkk_price_entry is not None else round(eur_to_dkk(eur_price)/10, 1)
+        dkk_price = round(dkk_price_entry/10) if dkk_price_entry is not None else round(eur_to_dkk(eur_price)/10)
         shown_price_sum += dkk_price
         estimate_suffix = '' if dkk_price_entry is not None else '  *'
         min_max_suffix = ''
@@ -56,9 +56,9 @@ def print_prises_for(prices, night_only=False, now_color=Fore.GREEN):
             min_max_suffix = ' (max)'
         fg_color = now_color if price_time.date() == datetime.now().date() and price_time.hour == datetime.now().hour else ''
         print(f'{fg_color}{price_time} {dkk_price:>6}{estimate_suffix}{min_max_suffix}')
-    print(f"Average, whole day: {round(day_average_price, 1)}")
+    print(f"Average, whole day: {round(day_average_price)}")
     if night_only:
-        print(f"Average, shown prices: {round(shown_average_price, 1)}")
+        print(f"Average, shown prices: {round(shown_average_price)}")
 
 
 def run(night_only):
